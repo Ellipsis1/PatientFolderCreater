@@ -16,7 +16,7 @@ def create_patient_folder():
     due_date = due_date.replace("-", ".")
 
     #create the main folder name
-    if is_ios:
+    if is_ios == 'Y':
         folder_name = f"{due_date} {patient_name} ({unique_id})- (ios) {center_name} Due {due_date} Hrx"
     else:
         folder_name = f"{due_date} {patient_name} ({unique_id})- {center_name} Due {due_date} Hrx"
