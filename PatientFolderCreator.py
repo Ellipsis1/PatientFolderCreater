@@ -45,13 +45,9 @@ def get_patient_data_massinput():
             patient_name = patient_line.strip()
             unique_id = "UNKNOWN"
 
-    is_ios = input("Is IOS? (Y/N): ").strip().lower()
-
     #create the main folder name
-    if is_ios == 'y':
-        folder = f"{due_date} {patient_name} ({unique_id}) (ios) {center_name} Due {due_date} Hrx"
-    else:
-        folder = f"{due_date} {patient_name} ({unique_id}) {center_name} Due {due_date} Hrx"
+
+    folder = f"{due_date} {patient_name} ({unique_id}) {center_name}"
 
     return folder
 
@@ -59,20 +55,17 @@ def get_patient_data_lineinput():
     print("Please input patient info below:")
 
 
-    due_date = input("Enter Due date (format mm-dd-yy): ").strip()
+    due_date = input("Enter Due date (format mm-dd-yy or mm/dd/yy): ").strip()
     patient_name = input("Enter patient name: ").strip().upper()
     unique_id = input("Enter Unique ID: ").strip().upper()
-    center_name = input("Enter Center Name: ").strip()
-    is_ios = input("Is IOS? (Y/N): ").strip().lower()
+    center_name = input("Enter Center Name: ").strip().title()
+
 
     #replace hyphens with periods in duedate for folder creation
-    due_date = due_date.replace("-", ".")
+    due_date = due_date.replace("-", ".").replace("/",".")
 
     #create the main folder name
-    if is_ios == 'y':
-        folder = f"{due_date} {patient_name} ({unique_id}) (ios) {center_name} Due {due_date} Hrx"
-    else:
-        folder = f"{due_date} {patient_name} ({unique_id}) {center_name} Due {due_date} Hrx"
+    folder = f"{due_date} {patient_name} ({unique_id}) {center_name}"
 
     return folder
 
