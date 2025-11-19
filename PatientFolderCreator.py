@@ -92,7 +92,7 @@ def create_patient_folder():
         print(f"Created folder: {folder_name}")
 
         #create subfolders
-        subfolders = ["Design Files", "Design Screenshots", "STL"]
+        subfolders = ["3D Viewer", "Design Screenshots", "STL"]
         for subfolder in subfolders:
             subfolder_path = main_folder_path / subfolder
             subfolder_path.mkdir(exist_ok=True)
