@@ -204,19 +204,19 @@ class PatientFolderCreatorGUI:
 
         self.manual_preview.config(text=folder_name)
 
-    def create_folder_structure(self, folder_name):
+    def create_folder_structure(self, folder_name, unique_id):
         """Create folder structure"""
 
         desktop = Path.home() / "Desktop"
         main_folder_path = desktop / folder_name
 
-        #create main folder and subfolders
+        # create main folder and subfolders
         try:
             #create main folder
             main_folder_path.mkdir(exist_ok=True)
 
             #create subfolders
-            subfolders = ["3D Viewer", "Design Screenshots", "STL"]
+            subfolders = ["3D Viewer", "Design Screenshots", f"{unique_id} STL"]
             for subfolder in subfolders:
                 subfolder_path = main_folder_path / subfolder
                 subfolder_path.mkdir(exist_ok=True)
@@ -243,7 +243,8 @@ class PatientFolderCreatorGUI:
             return
 
         #create folders
-        success, result = self.create_folder_structure(folder_name)
+        data = self.parse_pasted_data(text)
+        success, result = self.create_folder_structure(folder_name, data["unique_id"])
 
         if success:
             messagebox.showinfo("Success", f"Folder created successfully.\n\nLocation:\n {result}")
@@ -261,7 +262,8 @@ class PatientFolderCreatorGUI:
             messagebox.showerror("Error", "Please fill in all fields!")
             return
 
-        success, result = self.create_folder_structure(folder_name)
+        unique_id = self.unique_id_entry.get().strip().upper()
+        success, result = self.create_folder_structure(folder_name, unique_id)
 
         if success:
             messagebox.showinfo("Success", f"Folder created successfully.\n\nLocation:\n {result}")
