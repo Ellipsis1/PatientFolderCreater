@@ -107,8 +107,11 @@ class PatientFolderCreatorGUI:
 
     def parse_pasted_data(self, text):
         """Parse pasted data in window and extract patient information"""
-        #Strip empty lines
-        lines = [line.strip() for line in text.strip().split('\n') if line.strip()]
+        # Strip empty lines
+        # Strip lines containing status words Approved/Submitted/Received
+        status_words = ['Approved', 'Submitted', 'Received', 'Rx Submitted', 'Scan Received', 'Awaiting Approval']
+        lines = [line.strip() for line in text.strip().split('\n')
+                 if line.strip() and not any(word in line for word in status_words)]
 
         if len(lines) < 2:
             return None
@@ -235,7 +238,6 @@ class PatientFolderCreatorGUI:
             return
 
         #get folder name from preview
-
         folder_name = self.paste_preview.cget("text")
 
         if not folder_name or folder_name in ["Preview will appear here...", "Unable to parse data. Check format."]:
